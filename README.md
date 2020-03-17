@@ -1,6 +1,11 @@
 # Financial_Engineering
 
-姓名：林姿妤   
-學號：B05504044 
-學校：國立臺灣大學
-系級：化工四 (雙主修經濟系)
+# Who am I 
+	Name：Tzu-Yu Lin (林姿妤)   
+	Student ID：B05504044 
+	School：National Taiwan University
+	Department：Chemical Engineering (double major in Economics)
+
+# Course Information
+	Course：財務工程
+	Semester：108-2
