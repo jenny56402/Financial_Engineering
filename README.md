@@ -7,5 +7,5 @@
   Department：Chemical Engineering (double major in Economics)   
 
 # Course Information
-  Course：財務工程   
+  Course：Financial Engineering (財務工程)   
   Semester：108-2   
