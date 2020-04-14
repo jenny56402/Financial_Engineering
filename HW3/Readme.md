@@ -21,7 +21,7 @@
 
 <img src="https://github.com/jenny56402/Financial_Engineering/blob/master/HW3/image/2.PNG"/>
 
-## 程式碼與執行方法
+## 執行方法
 
 下載Python3.7，電腦螢幕左下角”開始”按右鍵，按執行，輸入cmd並確認，輸入pip install matplotlib和輸入pip install numpy，安裝本程序所需之函式庫，執行程式
 
@@ -30,14 +30,22 @@
 ## 執行結果 (以範例參數為例)
 
 Stock price: 160
+
 The probability of price increase: 1.5
+
 The probability of price decrease: 0.5
+
 Riskless rate: 0.18232
+
 Strike price: 150
+
 Number of periods:3
 
 <img src="https://github.com/jenny56402/Financial_Engineering/blob/master/HW3/image/3.PNG"/>
 
+
+
+## 程式碼
 
 ```typescript
 import numpy as np
