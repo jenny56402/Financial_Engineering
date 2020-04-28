@@ -68,10 +68,10 @@ mon: pay month (在第幾個月付息)
 
 輸入題目的範例參數
 
-<img src="https://github.com/jenny56402/Financial_Engineering/blob/master/HW4/image/6.PNG"/>
+<img src="https://github.com/jenny56402/Financial_Engineering/blob/master/HW4/image/6.png"/>
 
 輸出結果
 
-<img src="https://github.com/jenny56402/Financial_Engineering/blob/master/HW4/image/7.PNG"/>
+<img src="https://github.com/jenny56402/Financial_Engineering/blob/master/HW4/image/7.png"/>
 
 
