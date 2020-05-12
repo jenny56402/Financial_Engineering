@@ -31,7 +31,7 @@ B.	將Short Rate帶入Geometric Brownian Motion，r換成r(t)模擬股價
 
 C.	自訂選擇權履約價，對每一條path計算出到期日時的PayOff
 
-以蒙地卡羅法進行計算
+以蒙地卡羅法進行計算，設定path數量為200
 
 
 2.	對所有Path的PayOff進行期望值計算，並折現回t = 0的時間點
