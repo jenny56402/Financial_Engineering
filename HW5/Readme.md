@@ -58,11 +58,13 @@ C.	自訂選擇權履約價，對每一條path計算出到期日時的PayOff
 
 輸入題目的範例參數
 
-<img src="https://github.com/jenny56402/Financial_Engineering/blob/master/HW4/image/6.png"/>
+<img src="https://github.com/jenny56402/Financial_Engineering/blob/master/HW5/image/4.png"/>
 
 輸出結果
 
-<img src="https://github.com/jenny56402/Financial_Engineering/blob/master/HW4/image/7.png"/>
+<img src="https://github.com/jenny56402/Financial_Engineering/blob/master/HW5/image/5.png"/>
+
+<img src="https://github.com/jenny56402/Financial_Engineering/blob/master/HW5/image/6.png"/>
 
 
 ## 程式碼
