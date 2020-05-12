@@ -67,29 +67,65 @@ C.	自訂選擇權履約價，對每一條path計算出到期日時的PayOff
 
 ## 程式碼
 ```typescript
-import math
-from scipy import stats
+import QuantLib as ql
+import matplotlib.pyplot as plt
+import numpy as np
 
-S = int(input("current price: "))
-sigma = float(input("fluctuation: "))  # 波動度
-period = int(input("periods(/year): "))  # 一年的期數
-dividend = float(input("dividends: "))  # 每期股利
-r = float(input("return rate: "))
 X = int(input("strike price: "))  # 履約價
-T = float(input("maturity period(year): "))
+r = float(input("risk-free interest(year): "))
+time = float(input("duration of option(year): "))
+timestep = int(input("time step: "))
+a = float(input("the value of Hull-White Model: "))
+sigma = float(input("fluctuation in Hull-White Model: "))  # 波動度
+forward_rate = float(input("forward rate: "))
+S = int(input("current price: "))
+num_paths = int(input("number of simulation paths: "))
 
-D = 0
-for i in range(period):
-    dividend_month = int(input("dividend month: "))  # 在第幾月付息
-    D += dividend*math.exp(-r*dividend_month/12)
+day_count = ql.Thirty360()
+today = ql.Date().todaysDate()
+ql.Settings.instance().evaluationDate = today
+spot_curve = ql.FlatForward(today, ql.QuoteHandle(ql.SimpleQuote(forward_rate)), day_count)
+spot_curve_handle = ql.YieldTermStructureHandle(spot_curve)
+hw_process = ql.HullWhiteProcess(spot_curve_handle, a, sigma)
+rng = ql.GaussianRandomSequenceGenerator(ql.UniformRandomSequenceGenerator(timestep, ql.UniformRandomGenerator()))
+seq = ql.GaussianPathGenerator(hw_process, time, timestep, rng, False)
+def generate_paths(num_paths, timestep):
+    arr = np.zeros((num_paths, timestep+1))
+    for i in range(num_paths):
+        sample_path = seq.next()
+        path = sample_path.value()
+        time = [path.time(j) for j in range(len(path))]
+        value = [path[j] for j in range(len(path))]
+        arr[i, :] = np.array(value)
+    return np.array(time), arr
 
-S_hat = S - D
+t, paths = generate_paths(num_paths, timestep)
+plt.figure()
+plt.subplot(2,1,1)
+for i in range(num_paths):
+    plt.plot(t, paths[i, :], lw=0.8, alpha=0.6)
+plt.title("Hull-White Short Rate Simulation")
 
-d1 = (math.log(S_hat/X) + (r + 0.5*(sigma**2))*T)/(sigma*(T**0.5))
-d2 = d1 - sigma*(T**0.5)
-
-c = S_hat*stats.norm.cdf(d1) - X*math.exp(-r*T)*stats.norm.cdf(d2)
-p = c + X*math.exp(-r*T) - S_hat
-
-print("call price: " + str(round(c, 2)))
-print("put price: " + str(round(p, 2)))
+def genBrownPath (T, mu, sigma, S0, dt):
+    n = len(mu)
+    t = np.linspace(0, T, n)
+    W = [0] + np.random.standard_normal(size = n)
+    W = np.cumsum(W)*np.sqrt(dt)
+    S = S0*np.exp((mu-0.5*sigma**2)*t + sigma*W )
+    plt.plot(t, S)
+    return S
+call_price_sum = 0
+put_price_sum = 0
+plt.subplot(2,1,2)
+plt.title("Stock Price Simulation by ")
+for i in range(num_paths):
+    price = genBrownPath(time, paths[i], sigma, S, 1/timestep)
+    payoff = price[-1]
+    print("payoff path %d: %f"% (i, payoff))
+    if payoff >= X:
+        call_price_sum += price[-1] - X
+    else:
+        put_price_sum += X - price[-1]
+print("call:", round(call_price_sum / num_paths * np.exp(-r * time), 3))
+print("put:", round(put_price_sum / num_paths * np.exp(-r * time),3))
+plt.show()
